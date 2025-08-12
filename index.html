@@ -108,7 +108,7 @@
          ادامه (سمت چپ) و شروع مجدد (سمت راست) به صورت قابل کلیک باقی می‌مونن -->
     <div class="button-group" id="buttonGroup">
       <button id="continueButton" onclick="continueAudio()">ادامه‌ی صدا</button>
-      <button id="playButton" onclick="playAudio()">شنیدن صدا</button>
+      <button id="playButton" onclick="playAudio()">شنيدن صدا</button>
       <button id="stopButton" onclick="stopAudio()">توقف صدا</button>
       <button id="restartButton" onclick="restartAudio()">شروع مجدد</button>
     </div>
@@ -189,7 +189,7 @@
     audio.addEventListener('ended', () => {
       // وقتی تموم شد: show restart (سمت راست) و play به حالت شنیدن دوباره
       playButton.style.display = 'inline-block';
-      playButton.textContent = 'شنیدن دوباره';
+      playButton.textContent = 'شنيدن دوباره';
       playButton.disabled = false;
       stopButton.style.display = 'none';
       continueButton.style.display = 'none';
