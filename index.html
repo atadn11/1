@@ -108,8 +108,8 @@
         <h1 id="sigolText">
             <span>s</span><span>i</span><span>g</span><span>o</span><span>l</span>
         </h1>
-        <img src="https://i.ibb.co/39Kf0PTz/photo-2025-08-07-15-55-18.jpg" alt="Sigol" />
-        <button id="playButton" onclick="playAudio()">شنیدن صدا</button>
+        <img src="https://i.ibb.co/39Kf0PTz/photo-2025-08-07-15-55-18.jpg" alt="سی گل" />
+        <button id="playButton" onclick="playAudio()">شنيدن صدا</button>
         <button id="stopButton" onclick="stopAudio()">توقف صدا</button>
         <button id="restartButton" onclick="restartAudio()">شروع مجدد</button>
     </div>
@@ -166,7 +166,7 @@
             audio.pause();
             pauseTime = audio.currentTime;
             stopButton.style.display = "none";
-            playButton.innerText = "ادامه ی صدا";
+            playButton.innerText = "ادامه ي صدا";
             playButton.disabled = false;
             restartButton.style.display = "inline-block";
         }
@@ -182,7 +182,7 @@
         }
 
         audio.addEventListener("ended", () => {
-            playButton.innerText = "شنیدن دوباره";
+            playButton.innerText = "شنيدن دوباره";
             playButton.disabled = false;
             stopButton.style.display = "none";
             restartButton.style.display = "inline-block";
