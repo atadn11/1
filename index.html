@@ -2,7 +2,7 @@
 <html lang="fa">
 <head>
     <meta charset="UTF-8" />
-    <title>سیگُل</title>
+    <title>سی‌گل</title>
     <style>
         body {
             background: linear-gradient(to bottom, #e0f7fa, #ffffff);
@@ -28,34 +28,13 @@
             position: relative;
         }
 
-        /* h1 با حروف داخل span */
         #sigolText {
             font-size: 80px;
             color: #00796b;
             margin-bottom: 40px;
-            letter-spacing: 2em; /* فاصله زیاد بین حروف اول */
             user-select: none;
-            display: flex;
-            justify-content: center;
-            gap: 0;
             opacity: 0;
-            transition: letter-spacing 1.5s ease-in-out;
-        }
-
-        #sigolText span {
-            opacity: 0;
-            display: inline-block;
-            transform: translateY(30px);
-            animation-fill-mode: forwards;
-            animation-name: letterFadeIn;
-            animation-duration: 0.5s;
-        }
-
-        @keyframes letterFadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            transition: opacity 1s ease;
         }
 
         img {
@@ -68,6 +47,22 @@
             transition: opacity 1s ease, transform 1s ease;
         }
 
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            max-width: 400px;
+            margin: 15px auto 0 auto;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .button-group.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         button {
             font-size: 22px;
             padding: 16px 40px;
@@ -76,17 +71,14 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.3s, opacity 0.5s ease;
-            margin: 15px 10px 0 10px;
-            opacity: 0;
-            pointer-events: none;
+            transition: background-color 0.3s;
+            flex: 1;
         }
 
         button:hover {
             background-color: #00796b;
         }
 
-        /* کلاس فعال سازی انیمیشن ها و دکمه ها */
         .active #sigolText {
             opacity: 1;
         }
@@ -95,23 +87,19 @@
             opacity: 1;
             transform: scale(1);
         }
-
-        .active button {
-            opacity: 1;
-            pointer-events: auto;
-        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1 id="sigolText">
-            <span>s</span><span>i</span><span>g</span><span>o</span><span>l</span>
-        </h1>
-        <img src="https://i.ibb.co/39Kf0PTz/photo-2025-08-07-15-55-18.jpg" alt="سی گل" />
-        <button id="playButton" onclick="playAudio()">شنيدن صدا</button>
-        <button id="stopButton" onclick="stopAudio()">توقف صدا</button>
-        <button id="restartButton" onclick="restartAudio()">شروع مجدد</button>
+        <h1 id="sigolText">سی‌گل</h1>
+        <img src="https://i.ibb.co/39Kf0PTz/photo-2025-08-07-15-55-18.jpg" alt="سی‌گل" />
+        
+        <div class="button-group" id="buttonGroup">
+            <button id="playButton" onclick="playAudio()">شنیدن صدا</button>
+            <button id="stopButton" onclick="stopAudio()">توقف صدا</button>
+            <button id="restartButton" onclick="restartAudio()">شروع مجدد</button>
+        </div>
     </div>
 
     <audio id="audio">
@@ -124,38 +112,23 @@
         const playButton = document.getElementById("playButton");
         const stopButton = document.getElementById("stopButton");
         const restartButton = document.getElementById("restartButton");
+        const buttonGroup = document.getElementById("buttonGroup");
         const audio = document.getElementById("audio");
-        const sigolText = document.getElementById("sigolText");
-        const letters = sigolText.querySelectorAll('span');
         let pauseTime = 0;
 
-        // دکمه‌ها اول مخفی باشند
         stopButton.style.display = "none";
         restartButton.style.display = "none";
 
-        // 3 ثانیه صبر و بعد فعال کردن انیمیشن و دکمه‌ها
         setTimeout(() => {
             container.classList.add('active');
-            animateSigol();
+            buttonGroup.classList.add('active');
         }, 3000);
-
-        function animateSigol() {
-            letters.forEach((letter, index) => {
-                letter.style.animationDelay = `${index * 0.3}s`;
-                letter.style.animationPlayState = 'running';
-            });
-
-            // بعد از انیمیشن حروف فاصله را کم کن
-            setTimeout(() => {
-                sigolText.style.letterSpacing = "0.1em";
-            }, letters.length * 300 + 500);
-        }
 
         function playAudio() {
             if (audio.paused) {
                 audio.currentTime = pauseTime;
                 audio.play();
-                playButton.innerText = "در حال پخش...";
+                playButton.innerText = "در حال پخش…";
                 playButton.disabled = true;
                 stopButton.style.display = "inline-block";
                 restartButton.style.display = "none";
@@ -166,7 +139,8 @@
             audio.pause();
             pauseTime = audio.currentTime;
             stopButton.style.display = "none";
-            playButton.innerText = "ادامه ي صدا";
+            playButton.style.display = "inline-block";
+            playButton.innerText = "ادامه‌ی صدا";
             playButton.disabled = false;
             restartButton.style.display = "inline-block";
         }
@@ -175,14 +149,14 @@
             pauseTime = 0;
             audio.currentTime = 0;
             audio.play();
-            playButton.innerText = "در حال پخش...";
+            playButton.innerText = "در حال پخش…";
             playButton.disabled = true;
             stopButton.style.display = "inline-block";
             restartButton.style.display = "none";
         }
 
         audio.addEventListener("ended", () => {
-            playButton.innerText = "شنيدن دوباره";
+            playButton.innerText = "شنیدن دوباره";
             playButton.disabled = false;
             stopButton.style.display = "none";
             restartButton.style.display = "inline-block";
